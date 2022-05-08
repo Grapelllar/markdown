@@ -180,7 +180,76 @@ $ git push origin master
 
 2、该操作只是删除本地和远程的链接，要真正删除远程库需从 GitHub 中删除。
 
+### 从远程库克隆
 
+* 选择好文件夹，使用以下命令克隆
+
+```
+$ git clone git@github.com:yourGitHubname/repo.git
+```
+
+* Git 支持多协议，默认用 git:// 使用 SSH，但也可以使用 https，但速度慢，每次推送都必须输入口令。
+
+## 分支管理
+
+* 分支其实就是 HEAD 和分支指针的变化，HEAD 指向分支头。
+* 具体指针变化理解见：https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424
+
+### 创建分支：
+
+1、创建 ```dev``` 分支并切换：
+
+```
+$ git checkout -b dev
+```
+
+该命令相当于：
+
+```
+$ git branch dev
+$ git checkout dev
+```
+
+2、使用 ```git branch``` 查询当前分支：
+
+```
+$ git branch
+```
+
+之后即可在当前分支上操作
+
+### 合并分支：
+
+1、把 ```dev``` 分支的工作成果合并到 ```master```：
+
+```
+$ git merge dev
+```
+
+2、合并后，可以删除分支：
+
+```
+$ git branch -d dev
+```
+
+* 创建并切换分支，可以用：
+
+```
+$ git switch -c dev
+```
+
+* 直接切换到已有分支：
+
+```
+$ git switch master
+```
+
+### 解决分支冲突
+
+* 另一个分支只是在主分支后面增添内容，则不会产生冲突。但若是修改内容，则会冲突，如修改同一个文件的同一行。此时需要手动修改冲突```==》出一篇文章，参考https://www.zhihu.com/question/510309450```
+* 使用 ```git log --graph --pretty=oneline --abbrev-commit``` 可以查看分支情况
+
+### 分支管理策略
 
 #### 注意：
 
