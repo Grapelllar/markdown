@@ -159,12 +159,37 @@ https://www.liaoxuefeng.com/wiki/1252599548343744/1376414781669409
 
 
 
+实践Jar包
+
 
 
 一个`.java`文件只能包含一个`public`类，为什么？
 
 
 
+这是因为通过`new String(char[])`创建新的`String`实例时，它并不会直接引用传入的`char[]`数组，而是会复制一份，所以，修改外部的`char[]`数组不会影响`String`实例内部的`char[]`数组，因为这是两个不同的数组。
+
+从`String`的不变性设计可以看出，如果传入的对象有可能改变，我们需要复制而不是直接引用。
+
+
+
+
+
+idea:ctrl+alt+l 自动对齐
+
+
+
+时刻记得main函数，遇到奇怪问题先排查这个
+
+
+
+
+
+为什么不推荐使用
+
+```
+Integer n1 = new Integer(100);
+```
 
 
 
@@ -172,6 +197,28 @@ https://www.liaoxuefeng.com/wiki/1252599548343744/1376414781669409
 
 
 
+仔细观察结果的童鞋可以发现，`==`比较，较小的两个相同的`Integer`返回`true`，较大的两个相同的`Integer`返回`false`，这是因为`Integer`是不变类，编译器把`Integer x = 127;`自动变为`Integer x = Integer.valueOf(127);`，为了节省内存，`Integer.valueOf()`对于较小的数，始终返回相同的实例
+
+以上，为什么
+
+
+
+
+
+```
+//为防止enum顺序被改变，可以如下定义
+enum WeekdayEnumIndex{
+    MON(1),TUE(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);
+
+    public final int dayValue;
+
+    private WeekdayEnumIndex(int dayValue){
+        this.dayValue = dayValue;
+    }
+}
+```
+
+以上的括号语法如何成立
 
 
 
@@ -179,25 +226,23 @@ https://www.liaoxuefeng.com/wiki/1252599548343744/1376414781669409
 
 
 
+```
+BigDecimal d1 = new BigDecimal("123.4500");
+BigDecimal d2 = d1.stripTrailingZeros();
+System.out.println(d1.scale()); // 4
+System.out.println(d2.scale()); // 2,因为去掉了00
+
+BigDecimal d3 = new BigDecimal("1234500");
+BigDecimal d4 = d3.stripTrailingZeros();
+System.out.println(d3.scale()); // 0
+System.out.println(d4.scale()); // -2
+```
+
+如果一个`BigDecimal`的`scale()`返回负数，例如，`-2`，表示这个数是个整数，并且末尾有2个0。
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+为什么是-2？
 
 
 
