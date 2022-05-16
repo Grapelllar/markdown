@@ -246,6 +246,7 @@ System.out.println(d4.scale()); // -2
 
 
 
+实验一次java所有的异常
 
 
 
@@ -253,8 +254,7 @@ System.out.println(d4.scale()); // -2
 
 
 
-
-
+Throwable.getCause()？
 
 
 
